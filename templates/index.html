@@ -1,0 +1,346 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>A Little Surprise For Yoshitha ❤️</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div id="flowerLayer"></div>
+
+<!-- SCREEN 1: WELCOME -->
+<section class="screen active" id="welcome">
+    <div class="welcome-content">
+        <div class="decoration">✿ ❀ ✿</div>
+        <p class="eyebrow">A LITTLE WORLD OF MAGIC</p>
+        <h1>A little something,<br>for you.</h1>
+        <p class="subtitle">Something beautiful is waiting for you...</p>
+        <button class="main-btn" id="continueBtn">Continue →</button>
+        <div class="bottom-flowers">🌷 🌼 🌸</div>
+    </div>
+</section>
+
+<!-- SCREEN 2: HEART -->
+<section class="screen" id="heartScreen">
+    <div class="heart-content">
+        <p class="heart-heading">a little something, for you</p>
+        <div class="heart-area">
+            <div id="dragHeart">❤️</div>
+        </div>
+        <p class="drag-text" id="dragText">PULL & RELEASE</p>
+    </div>
+</section>
+
+<!-- SCREEN 3: BIRTHDAY TREE -->
+<section class="screen" id="birthdayScreen">
+    <div class="birthday-layout">
+        <div class="birthday-text">
+            <p class="eyebrow">A SPECIAL DAY IS HERE</p>
+            <h1>Happy Birthday,<span>Yoshitha!</span></h1>
+            <p class="birthday-message">
+                May your life bloom with happiness,
+                love and beautiful memories.
+            </p>
+            <div class="little-hearts">♡ ✿ ♡</div>
+            <button class="main-btn" id="cakeNextBtn">
+                Make a Wish ✨
+            </button>
+        </div>
+        <div class="tree-container">
+            <canvas id="heartTree"></canvas>
+        </div>
+    </div>
+</section>
+
+<!-- SCREEN 4: BIRTHDAY CAKE -->
+<section class="screen" id="cakeScreen">
+    <div class="stars"></div>
+    <div class="cake-content">
+        <p class="cake-eyebrow">A WISH JUST FOR YOU</p>
+        <h1 class="cake-title">Make a Wish ✨</h1>
+        <p class="cake-subtitle">
+            Close your eyes and make a beautiful wish...
+        </p>
+
+        <div class="cake-scene">
+            <div class="candle">
+                <div class="flame" id="flame"></div>
+                <div class="wick"></div>
+                <div class="candle-body"></div>
+            </div>
+            <div class="cake-top"></div>
+            <div class="cake-middle"></div>
+            <div class="cake-bottom"></div>
+            <div class="cake-plate"></div>
+        </div>
+
+        <button class="blow-btn" id="blowBtn">
+            🕯️ Blow the Candle
+        </button>
+
+        <div class="wish-message" id="wishMessage">
+            <h2>🌟 Your wish is on its way! 🌟</h2>
+            <p>May all your dreams come true, Yoshitha ❤️</p>
+            <h2 class="final-love">Happy Birthday! 🎉</h2>
+            <button class="main-btn" id="balloonNextBtn">
+                Discover More Surprises 🎈
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- SCREEN 5: BALLOON GAME -->
+<section class="screen" id="balloonScreen">
+    <div class="balloon-heading">
+        <p class="eyebrow">A LITTLE GAME FOR YOU</p>
+        <h1>Pop the Balloons! 🎈</h1>
+        <p>Every balloon has a little message for you.</p>
+        <div class="progress-text" id="progressText">
+            0 / 6 balloons popped
+        </div>
+    </div>
+
+    <div class="balloon-area" id="balloonArea">
+        <button class="balloon balloon-pink" data-index="0"><span>♥</span></button>
+        <button class="balloon balloon-purple" data-index="1"><span>✿</span></button>
+        <button class="balloon balloon-yellow" data-index="2"><span>★</span></button>
+        <button class="balloon balloon-blue" data-index="3"><span>♡</span></button>
+        <button class="balloon balloon-peach" data-index="4"><span>♥</span></button>
+        <button class="balloon balloon-rose" data-index="5"><span>✧</span></button>
+    </div>
+
+    <div class="balloon-message" id="balloonMessage">
+        <span id="messageEmoji">💗</span>
+        <p id="messageText">A little message for you!</p>
+    </div>
+
+    <div class="balloon-finish" id="balloonFinish">
+        <h2>🎉 You found all the wishes!</h2>
+        <p>Six balloons, six little reminders of how special you are.</p>
+        <button class="main-btn" id="finishBalloonBtn">
+            Continue the Surprise ✨
+        </button>
+    </div>
+</section>
+
+<!-- SCREEN 6: FIVE REASONS -->
+<section class="screen" id="reasonsScreen">
+    <div class="reason-stars"></div>
+    <div class="reasons-content">
+        <p class="reason-heading">5 REASONS WHY YOU ARE SPECIAL</p>
+        <h1 class="reasons-title">You are one of a kind ❤️</h1>
+
+        <div class="reason-card reason-one">
+            <span class="reason-label">REASON NO. 1</span>
+            <p>Nobody listens the way you do 🫂</p>
+            <span class="reason-sparkle">✦</span>
+        </div>
+
+        <div class="reason-card reason-two">
+            <span class="reason-label">REASON NO. 2</span>
+            <p>You make bad days feel lighter 🥺</p>
+            <span class="reason-sparkle">✦</span>
+        </div>
+
+        <div class="reason-card reason-three">
+            <span class="reason-label">REASON NO. 3</span>
+            <p>You make normal days feel special ❤️</p>
+            <span class="reason-sparkle">✦</span>
+        </div>
+
+        <div class="reason-card reason-four">
+            <span class="reason-label">REASON NO. 4</span>
+            <p>You always know what to say ✨</p>
+            <span class="reason-sparkle">✦</span>
+        </div>
+
+        <div class="reason-card reason-five">
+            <span class="reason-label">REASON NO. 5</span>
+            <p>You believed in me before I did 💚</p>
+            <span class="reason-sparkle">✦</span>
+        </div>
+
+        <h2 class="thousand-reasons">
+            ...and a thousand more reasons 💛
+        </h2>
+        <p class="reason-footer">
+            You deserve all the happiness in the world.
+        </p>
+        <button class="main-btn" id="openMemoriesBtn">
+            See Our Memories 📸
+        </button>
+    </div>
+</section>
+
+<!-- SCREEN 7: PHOTO MEMORIES -->
+<section class="screen" id="memoriesScreen">
+    <div class="memories-content">
+        <p class="memories-eyebrow">LITTLE MOMENTS, BIG MEMORIES</p>
+        <h1 class="memories-title">Our Beautiful Memories 📸</h1>
+        <p class="memories-subtitle">
+            Every picture holds a little piece of happiness.
+        </p>
+
+        <div class="memory-page-label" id="memoryPageLabel">
+            MEMORIES 1 / 3
+        </div>
+
+        <div class="memory-photos" id="memoryPhotos"></div>
+
+        <div class="memory-controls">
+            <button class="memory-nav-btn" id="memoryPrevBtn" disabled>
+                ← Previous
+            </button>
+            <button class="memory-nav-btn" id="memoryNextBtn">
+                Next Memories →
+            </button>
+        </div>
+
+        <div class="memory-ending" id="memoryEnding">
+            <p>These moments are little treasures. More surprises await... ❤️</p>
+            <button class="main-btn" id="openLetterBtn">
+                Open Your Letter 💌
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- SCREEN 8: PERSONAL LETTER -->
+<section class="screen" id="letterScreen">
+    <div class="letter-content">
+        <p class="letter-eyebrow">A FEW WORDS FROM MY HEART</p>
+        <h1 class="letter-title">
+            Something I wanted to tell you 💌
+        </h1>
+        <p class="letter-subtitle">
+            Tap the envelope whenever you're ready.
+        </p>
+
+        <button class="envelope-wrapper" id="envelopeWrapper"
+                type="button" aria-label="Open your birthday letter">
+
+            <span class="envelope-hint">OPEN ME ♡</span>
+
+            <span class="envelope">
+                <span class="envelope-back"></span>
+
+                <span class="letter-paper" id="personalLetter">
+                    <span class="letter-paper-heart">♡</span>
+                    <strong>Dear Yoshitha, ❤️</strong>
+
+                    <span>
+                        I don't know if words can ever explain how
+                        special you are, but I wanted to try.
+                    </span>
+
+                    <span>
+                        Some people enter our lives and make everything
+                        feel a little different. You're one of those
+                        people. Even the simplest moments become
+                        beautiful memories, and sometimes a small
+                        conversation with you can make an ordinary day
+                        better.
+                    </span>
+
+                    <span>
+                        I may not always express everything I feel,
+                        and I may not have the perfect words every time,
+                        but I genuinely want you to know that you are
+                        someone worth appreciating.
+                    </span>
+
+                    <span>
+                        On your birthday, I wish you endless happiness,
+                        beautiful surprises, success in everything you
+                        dream of, and a thousand reasons to smile.
+                    </span>
+
+                    <span>
+                        Never stop being the person you are. Keep smiling,
+                        keep shining, and never forget how special you are.
+                    </span>
+
+                    <span>
+                        <strong>And one last thing...</strong>
+                        I hope this little surprise becomes one more
+                        beautiful memory for you. 🥺❤️
+                    </span>
+
+                    <strong class="letter-signoff">
+                        Happy Birthday, Yoshitha!<br>
+                        With lots of love,<br>
+                        Someone who wanted to make your day special. ❤️
+                    </strong>
+                </span>
+
+                <span class="envelope-front"></span>
+                <span class="envelope-flap"></span>
+                <span class="envelope-seal">♥</span>
+            </span>
+        </button>
+
+        <p class="letter-opened-note" id="letterOpenedNote">
+            A little note, just for you. ❤️
+        </p>
+
+        <button class="main-btn letter-finale-btn" id="grandFinaleBtn">
+            One Last Surprise ✨
+        </button>
+    </div>
+</section>
+
+<!-- SCREEN 9: GRAND FINALE -->
+<section class="screen" id="finaleScreen">
+    <div class="finale-stars"></div>
+
+    <div class="finale-content">
+        <div class="finale-orbit">✦　♡　✧　♡　✦</div>
+
+        <p class="finale-eyebrow">THIS IS YOUR DAY</p>
+
+        <h1 class="finale-title">
+            Happy Birthday,<br>
+            <span>Yoshitha!</span>
+        </h1>
+
+        <p class="finale-message">
+            May your days be soft, your heart be happy,
+            and your life be filled with beautiful little moments.
+            May every dream you carry find its way to you.
+        </p>
+
+        <div class="finale-heart">❤️</div>
+
+        <p class="finale-last-line">
+            You deserve a world full of wonderful things.
+        </p>
+
+        <button class="finale-replay-btn" id="replayBtn">
+            Relive the Surprise ↻
+        </button>
+    </div>
+</section>
+
+<!-- FULL-SIZE PHOTO VIEW -->
+<div class="memory-lightbox" id="memoryLightbox">
+    <button class="memory-lightbox-close"
+            id="memoryLightboxClose"
+            aria-label="Close photo">×</button>
+
+    <img id="memoryLightboxImage"
+         src=""
+         alt="Full-size memory">
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
