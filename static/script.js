@@ -47,8 +47,17 @@ for (let i = 0; i < 22; i++) {
 // SCREEN 1: WELCOME
 // ============================================
 
+const bgMusic = document.getElementById("bgMusic");
+
 document.getElementById("continueBtn")
     .addEventListener("click", () => {
+
+        bgMusic.volume = 0.4;
+
+        bgMusic.play().catch(error => {
+            console.log("Music playback failed:", error);
+        });
+
         showScreen("heartScreen");
     });
 
