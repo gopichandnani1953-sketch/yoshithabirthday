@@ -1,3 +1,4 @@
+
 // ============================================
 // SCREEN MANAGEMENT
 // ============================================
@@ -24,42 +25,103 @@ for (let i = 0; i < 22; i++) {
     const flower = document.createElement("div");
 
     flower.className = "flower-particle";
-
-    flower.textContent =
-        flowers[Math.floor(Math.random() * flowers.length)];
-
+    flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
     flower.style.left = Math.random() * 100 + "%";
-
-    flower.style.fontSize =
-        (15 + Math.random() * 18) + "px";
-
-    flower.style.animationDuration =
-        (10 + Math.random() * 12) + "s";
-
-    flower.style.animationDelay =
-        (-Math.random() * 15) + "s";
+    flower.style.fontSize = (15 + Math.random() * 18) + "px";
+    flower.style.animationDuration = (10 + Math.random() * 12) + "s";
+    flower.style.animationDelay = (-Math.random() * 15) + "s";
 
     flowerLayer.appendChild(flower);
 }
 
 
 // ============================================
-// SCREEN 1: WELCOME
+// COUNTDOWN SCREEN -> WELCOME SCREEN
 // ============================================
 
 const bgMusic = document.getElementById("bgMusic");
+const continueBtn = document.getElementById("continueBtn");
+const birthdayCountdown = document.getElementById("birthdayCountdown");
+const startSurpriseBtn = document.getElementById("startSurpriseBtn");
 
-document.getElementById("continueBtn")
-    .addEventListener("click", () => {
+// Timer date - change this later when you are ready.
+const birthdayUnlockTime =
+    new Date("2026-10-31T00:00:00+05:30").getTime();
 
-        bgMusic.volume = 0.4;
+let countdownInterval = null;
 
-        bgMusic.play().catch(error => {
-            console.log("Music playback failed:", error);
-        });
+function updateBirthdayCountdown() {
+    const remaining = birthdayUnlockTime - Date.now();
 
-        showScreen("heartScreen");
-    });
+    if (remaining <= 0) {
+        if (countdownInterval !== null) {
+            clearInterval(countdownInterval);
+            countdownInterval = null;
+        }
+
+        birthdayCountdown.hidden = true;
+        startSurpriseBtn.hidden = false;
+        startSurpriseBtn.disabled = false;
+
+        return;
+    }
+
+    const totalSeconds = Math.floor(remaining / 1000);
+
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    document.getElementById("countdownDays").textContent =
+        String(days).padStart(2, "0");
+
+    document.getElementById("countdownHours").textContent =
+        String(hours).padStart(2, "0");
+
+    document.getElementById("countdownMinutes").textContent =
+        String(minutes).padStart(2, "0");
+
+    document.getElementById("countdownSeconds").textContent =
+        String(seconds).padStart(2, "0");
+
+    birthdayCountdown.hidden = false;
+    startSurpriseBtn.hidden = true;
+}
+
+updateBirthdayCountdown();
+
+if (Date.now() < birthdayUnlockTime) {
+    countdownInterval = setInterval(updateBirthdayCountdown, 1000);
+}
+
+
+// ============================================
+// START BUTTON: PLAY MUSIC + OPEN WELCOME
+// ============================================
+
+startSurpriseBtn.addEventListener("click", async () => {
+    if (Date.now() < birthdayUnlockTime) return;
+
+    bgMusic.volume = 0.4;
+
+    try {
+        await bgMusic.play();
+    } catch (error) {
+        console.log("Music playback failed:", error);
+    }
+
+    showScreen("welcome");
+});
+
+
+// ============================================
+// CONTINUE BUTTON: WELCOME -> HEART SCREEN
+// ============================================
+
+continueBtn.addEventListener("click", () => {
+    showScreen("heartScreen");
+});
 
 
 // ============================================
@@ -103,13 +165,10 @@ function releaseHeart() {
 
     if (distance >= 80) {
         heartCompleted = true;
-
         dragText.style.opacity = "0";
 
         heart.style.transition = ".7s ease";
-
-        heart.style.transform =
-            "translateY(180px) scale(0)";
+        heart.style.transform = "translateY(180px) scale(0)";
 
         setTimeout(() => {
             showScreen("birthdayScreen");
@@ -146,9 +205,7 @@ function drawHeartTree() {
     const centerX = w * .52;
 
     // TREE TRUNK
-
     ctx.beginPath();
-
     ctx.moveTo(centerX, h);
 
     ctx.bezierCurveTo(
@@ -163,7 +220,6 @@ function drawHeartTree() {
     ctx.stroke();
 
     // TREE BRANCHES
-
     const branches = [
         [-100, -100],
         [-130, -160],
@@ -177,7 +233,6 @@ function drawHeartTree() {
 
     branches.forEach(([x, y]) => {
         ctx.beginPath();
-
         ctx.moveTo(centerX, h * .52);
 
         ctx.quadraticCurveTo(
@@ -193,7 +248,6 @@ function drawHeartTree() {
     });
 
     // HEART COLOURS
-
     const colors = [
         "#f6a0b5",
         "#ee819e",
@@ -205,21 +259,14 @@ function drawHeartTree() {
 
     function drawHeart(x, y, size, color) {
         ctx.save();
-
         ctx.translate(x, y);
         ctx.scale(size / 18, size / 18);
 
         ctx.beginPath();
-
         ctx.moveTo(0, 7);
 
-        ctx.bezierCurveTo(
-            -18, -5, -13, -20, 0, -10
-        );
-
-        ctx.bezierCurveTo(
-            13, -20, 18, -5, 0, 7
-        );
+        ctx.bezierCurveTo(-18, -5, -13, -20, 0, -10);
+        ctx.bezierCurveTo(13, -20, 18, -5, 0, 7);
 
         ctx.fillStyle = color;
         ctx.shadowColor = color;
@@ -230,7 +277,6 @@ function drawHeartTree() {
     }
 
     // HEART TREE CANOPY
-
     for (let i = 0; i < 450; i++) {
         const x = Math.random() * 2 - 1;
         const y = Math.random() * 2 - 1;
@@ -274,10 +320,44 @@ const wishMessage = document.getElementById("wishMessage");
 
 let candleBlown = false;
 
-blowBtn.addEventListener("click", () => {
+blowBtn.addEventListener("click", async () => {
     if (candleBlown) return;
 
     candleBlown = true;
+    blowBtn.disabled = true;
+
+    // Flame slowly fades out over 2.2 seconds.
+    const flameFade = flame.animate(
+        [
+            {
+                opacity: 1,
+                filter: "blur(0px)",
+                boxShadow: "0 0 20px #ffb34e"
+            },
+            {
+                opacity: 0.75,
+                filter: "blur(1px)",
+                boxShadow: "0 0 14px #ffb34e"
+            },
+            {
+                opacity: 0.35,
+                filter: "blur(4px)",
+                boxShadow: "0 0 6px #ffb34e"
+            },
+            {
+                opacity: 0,
+                filter: "blur(8px)",
+                boxShadow: "0 0 0 transparent"
+            }
+        ],
+        {
+            duration: 2200,
+            easing: "ease-out",
+            fill: "forwards"
+        }
+    );
+
+    await flameFade.finished;
 
     flame.classList.add("off");
 
@@ -293,9 +373,7 @@ blowBtn.addEventListener("click", () => {
 // ============================================
 
 function createConfetti(count = 35) {
-    const symbols = [
-        "✨", "⭐", "💫", "🌟", "🎉", "💗"
-    ];
+    const symbols = ["✨", "⭐", "💫", "🌟", "🎉", "💗"];
 
     for (let i = 0; i < count; i++) {
         const particle = document.createElement("div");
@@ -306,10 +384,7 @@ function createConfetti(count = 35) {
         particle.style.position = "fixed";
         particle.style.left = Math.random() * 100 + "vw";
         particle.style.top = "-30px";
-
-        particle.style.fontSize =
-            (15 + Math.random() * 15) + "px";
-
+        particle.style.fontSize = (15 + Math.random() * 15) + "px";
         particle.style.pointerEvents = "none";
         particle.style.zIndex = "100";
 
@@ -387,24 +462,14 @@ const messages = [
 
 let poppedCount = 0;
 
-const progressText =
-    document.getElementById("progressText");
-
-const balloonMessage =
-    document.getElementById("balloonMessage");
-
-const messageEmoji =
-    document.getElementById("messageEmoji");
-
-const messageText =
-    document.getElementById("messageText");
-
-const balloonFinish =
-    document.getElementById("balloonFinish");
+const progressText = document.getElementById("progressText");
+const balloonMessage = document.getElementById("balloonMessage");
+const messageEmoji = document.getElementById("messageEmoji");
+const messageText = document.getElementById("messageText");
+const balloonFinish = document.getElementById("balloonFinish");
 
 
 // POP SOUND
-
 function playPopSound() {
     try {
         const AudioContext =
@@ -448,7 +513,6 @@ function playPopSound() {
 
 
 // BALLOON CLICK
-
 balloons.forEach(balloon => {
     balloon.addEventListener("click", () => {
         if (balloon.classList.contains("popped")) return;
@@ -462,23 +526,15 @@ balloons.forEach(balloon => {
 
         poppedCount++;
 
-        // SHOW MESSAGE
-
         messageEmoji.textContent = messages[index].emoji;
         messageText.textContent = messages[index].text;
 
         balloonMessage.classList.remove("show");
-
         void balloonMessage.offsetWidth;
-
         balloonMessage.classList.add("show");
-
-        // UPDATE PROGRESS
 
         progressText.textContent =
             `${poppedCount} / ${balloons.length} balloons popped`;
-
-        // ALL BALLOONS POPPED
 
         if (poppedCount === balloons.length) {
             setTimeout(() => {
@@ -542,26 +598,13 @@ const memoryPages = [
 
 let currentMemoryPage = 0;
 
-const memoryPhotos =
-    document.getElementById("memoryPhotos");
-
-const memoryPageLabel =
-    document.getElementById("memoryPageLabel");
-
-const memoryPrevBtn =
-    document.getElementById("memoryPrevBtn");
-
-const memoryNextBtn =
-    document.getElementById("memoryNextBtn");
-
-const memoryLightbox =
-    document.getElementById("memoryLightbox");
-
-const memoryLightboxImage =
-    document.getElementById("memoryLightboxImage");
-
-const memoryLightboxClose =
-    document.getElementById("memoryLightboxClose");
+const memoryPhotos = document.getElementById("memoryPhotos");
+const memoryPageLabel = document.getElementById("memoryPageLabel");
+const memoryPrevBtn = document.getElementById("memoryPrevBtn");
+const memoryNextBtn = document.getElementById("memoryNextBtn");
+const memoryLightbox = document.getElementById("memoryLightbox");
+const memoryLightboxImage = document.getElementById("memoryLightboxImage");
+const memoryLightboxClose = document.getElementById("memoryLightboxClose");
 
 
 function showMemoryPage(pageIndex) {
@@ -575,9 +618,7 @@ function showMemoryPage(pageIndex) {
         const frame = document.createElement("button");
 
         frame.type = "button";
-
-        frame.className =
-            `memory-polaroid memory-photo-${index + 1}`;
+        frame.className = `memory-polaroid memory-photo-${index + 1}`;
 
         frame.setAttribute(
             "aria-label",
@@ -587,10 +628,7 @@ function showMemoryPage(pageIndex) {
         const image = document.createElement("img");
 
         image.src = `/static/images/${filename}`;
-
-        image.alt =
-            `Memory photo ${currentMemoryPage * 3 + index + 1}`;
-
+        image.alt = `Memory photo ${currentMemoryPage * 3 + index + 1}`;
         image.loading = "eager";
 
         image.addEventListener("error", () => {
@@ -603,7 +641,6 @@ function showMemoryPage(pageIndex) {
         const caption = document.createElement("span");
 
         caption.className = "memory-caption";
-
         caption.textContent =
             `A little memory ${currentMemoryPage * 3 + index + 1} ♡`;
 
@@ -624,8 +661,7 @@ function showMemoryPage(pageIndex) {
     memoryPageLabel.textContent =
         `MEMORIES ${currentMemoryPage + 1} / 3`;
 
-    memoryPrevBtn.disabled =
-        currentMemoryPage === 0;
+    memoryPrevBtn.disabled = currentMemoryPage === 0;
 
     memoryNextBtn.textContent =
         currentMemoryPage === 2
@@ -635,21 +671,18 @@ function showMemoryPage(pageIndex) {
 
 
 // PREVIOUS PAGE
-
 memoryPrevBtn.addEventListener("click", () => {
     showMemoryPage(currentMemoryPage - 1);
 });
 
 
 // NEXT PAGE
-
 memoryNextBtn.addEventListener("click", () => {
     if (currentMemoryPage < 2) {
         showMemoryPage(currentMemoryPage + 1);
 
     } else {
-        const ending =
-            document.getElementById("memoryEnding");
+        const ending = document.getElementById("memoryEnding");
 
         if (ending) {
             ending.classList.add("show");
@@ -675,10 +708,7 @@ memoryLightbox.addEventListener("click", event => {
 });
 
 document.addEventListener("keydown", event => {
-    if (
-        event.key === "Escape" &&
-        memoryLightbox
-    ) {
+    if (event.key === "Escape" && memoryLightbox) {
         memoryLightbox.classList.remove("open");
     }
 });
@@ -688,17 +718,10 @@ document.addEventListener("keydown", event => {
 // SCREEN 7 TO SCREEN 8: PERSONAL LETTER
 // ============================================
 
-const openLetterBtn =
-    document.getElementById("openLetterBtn");
-
-const envelopeWrapper =
-    document.getElementById("envelopeWrapper");
-
-const letterOpenedNote =
-    document.getElementById("letterOpenedNote");
-
-const grandFinaleBtn =
-    document.getElementById("grandFinaleBtn");
+const openLetterBtn = document.getElementById("openLetterBtn");
+const envelopeWrapper = document.getElementById("envelopeWrapper");
+const letterOpenedNote = document.getElementById("letterOpenedNote");
+const grandFinaleBtn = document.getElementById("grandFinaleBtn");
 
 if (openLetterBtn) {
     openLetterBtn.addEventListener("click", () => {
@@ -708,7 +731,6 @@ if (openLetterBtn) {
 
 
 // OPEN ENVELOPE
-
 if (envelopeWrapper) {
     envelopeWrapper.addEventListener("click", () => {
         if (envelopeWrapper.classList.contains("opened")) return;
@@ -737,7 +759,6 @@ if (envelopeWrapper) {
 if (grandFinaleBtn) {
     grandFinaleBtn.addEventListener("click", () => {
         showScreen("finaleScreen");
-
         createConfetti(100);
     });
 }
@@ -747,8 +768,7 @@ if (grandFinaleBtn) {
 // REPLAY THE SURPRISE FROM THE BEGINNING
 // ============================================
 
-const replayBtn =
-    document.getElementById("replayBtn");
+const replayBtn = document.getElementById("replayBtn");
 
 if (replayBtn) {
     replayBtn.addEventListener("click", () => {

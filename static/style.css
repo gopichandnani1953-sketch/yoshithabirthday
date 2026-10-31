@@ -130,6 +130,72 @@ body {
     font-size: 30px;
 }
 
+/* BIRTHDAY COUNTDOWN */
+
+.birthday-countdown {
+    margin: 30px auto 0;
+    width: min(520px, 100%);
+    padding: 20px 22px 17px;
+    border: 1px solid #e8c9c2;
+    border-radius: 22px;
+    background: #ffffffa8;
+    box-shadow: 0 12px 30px #b67d7014;
+    animation: fadeUp 1s ease both;
+}
+
+.birthday-countdown[hidden],
+#continueBtn[hidden] {
+    display: none !important;
+}
+
+.countdown-heading {
+    margin-bottom: 14px;
+    color: #b47e83;
+    font: 10px sans-serif;
+    letter-spacing: 4px;
+}
+
+.countdown-units {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(7px, 2vw, 17px);
+}
+
+.countdown-unit {
+    display: flex;
+    min-width: 58px;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.countdown-unit span {
+    color: #a96f70;
+    font: 500 clamp(25px, 5vw, 38px)/1 'Playfair Display', serif;
+    font-variant-numeric: tabular-nums;
+}
+
+.countdown-unit small {
+    color: #a98578;
+    font: 10px sans-serif;
+    letter-spacing: 1px;
+}
+
+.countdown-colon {
+    align-self: flex-start;
+    padding-top: 2px;
+    color: #d5a39a;
+    font: 25px 'Playfair Display', serif;
+}
+
+.countdown-date {
+    margin-top: 15px;
+    color: #b47e83;
+    font: 11px sans-serif;
+    letter-spacing: 1.5px;
+}
+
 /* HEART */
 
 #heartScreen {
@@ -1392,3 +1458,93 @@ body {
         font-size: 15px;
     }
 }
+
+/* SEPARATE COUNTDOWN SCREEN */
+
+#countdownScreen {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(145deg, #fffaf3, #f9e9e6 55%, #f6e8ef);
+}
+
+.countdown-screen-content {
+    width: min(680px, 100%);
+    padding: 28px 22px;
+    animation: fadeUp 1.2s ease both;
+}
+
+.countdown-screen-title {
+    margin: 16px 0 12px;
+    color: #9f706e;
+    font: 500 clamp(38px, 7vw, 66px)/1.08 'Playfair Display', serif;
+}
+
+#startSurpriseBtn {
+    margin-top: 24px;
+    min-width: 170px;
+}
+
+#startSurpriseBtn[hidden],
+.birthday-countdown[hidden] {
+    display: none !important;
+}
+
+.birthday-countdown {
+    margin: 30px auto 0;
+    width: min(520px, 100%);
+    padding: 20px 22px 17px;
+    border: 1px solid #e8c9c2;
+    border-radius: 22px;
+    background: #ffffffa8;
+    box-shadow: 0 12px 30px #b67d7014;
+}
+
+.countdown-heading {
+    margin-bottom: 14px;
+    color: #b47e83;
+    font: 10px sans-serif;
+    letter-spacing: 4px;
+}
+
+.countdown-units {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(7px, 2vw, 17px);
+}
+
+.countdown-unit {
+    display: flex;
+    min-width: 58px;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.countdown-unit span {
+    color: #a96f70;
+    font: 500 clamp(25px, 5vw, 38px)/1 'Playfair Display', serif;
+    font-variant-numeric: tabular-nums;
+}
+
+.countdown-unit small {
+    color: #a98578;
+    font: 10px sans-serif;
+    letter-spacing: 1px;
+}
+
+.countdown-colon {
+    align-self: flex-start;
+    padding-top: 2px;
+    color: #d5a39a;
+    font: 25px 'Playfair Display', serif;
+}
+
+.countdown-date {
+    margin-top: 15px;
+    color: #b47e83;
+    font: 11px sans-serif;
+    letter-spacing: 1.5px;
+}
+
