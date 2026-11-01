@@ -1195,10 +1195,11 @@ body {
     left: 7%;
     bottom: 12px;
     width: 86%;
-    max-height: 275px;
+    height: 200px;
+max-height: 200px;
     overflow-y: auto;
     box-sizing: border-box;
-    padding: 18px 20px;
+    padding: 16px 18px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -1273,7 +1274,8 @@ body {
 }
 
 .envelope-wrapper.opened .letter-paper {
-    transform: translateY(-150px);
+    z-index: 6;
+    transform: translateY(-100px);
 }
 
 .envelope-wrapper.opened .envelope-seal,
@@ -1442,15 +1444,19 @@ body {
         height: 205px;
     }
 
-    .letter-paper {
-        max-height: 260px;
-        padding: 14px;
-        font-size: 11px;
-        gap: 6px;
-    }
+   .letter-paper {
+    left: 7%;
+    width: 86%;
+    height: 160px;
+    max-height: 160px;
+    padding: 14px;
+    font-size: 11px;
+    gap: 6px;
+}
 
     .envelope-wrapper.opened .letter-paper {
-        transform: translateY(-140px);
+        z-index: 6;
+        transform: translateY(-90px);;
     }
 
     .finale-message,
